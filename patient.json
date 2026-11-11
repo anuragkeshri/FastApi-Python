@@ -1,0 +1,64 @@
+{
+    "patients": [
+      {
+        "id": 1,
+        "name": "Rahul Sharma",
+        "age": 28,
+        "gender": "Male",
+        "blood_group": "B+",
+        "city": "Ranchi",
+        "phone": "9876543210",
+        "diagnosis": "Fever",
+        "height":"5.1",
+        "is_admitted": false
+      },
+      {
+        "id": 2,
+        "name": "Priya Singh",
+        "age": 34,
+        "gender": "Female",
+        "blood_group": "O+",
+        "city": "Patna",
+        "phone": "9876543211",
+        "diagnosis": "Diabetes",
+        "height":"5.2",
+        "is_admitted": true
+      },
+      {
+        "id": 3,
+        "name": "Amit Kumar",
+        "age": 45,
+        "gender": "Male",
+        "blood_group": "A+",
+        "city": "Delhi",
+        "phone": "9876543212",
+        "diagnosis": "Hypertension",
+        "height":"5.3",
+        "is_admitted": false
+      },
+      {
+        "id": 4,
+        "name": "Neha Verma",
+        "age": 22,
+        "gender": "Female",
+        "blood_group": "AB+",
+        "city": "Mumbai",
+        "phone": "9876543213",
+        "diagnosis": "Migraine",
+        "height":"5.4",
+        "is_admitted": false
+      },
+      {
+        "id": 5,
+        "name": "Vikash Gupta",
+        "age": 56,
+        "gender": "Male",
+        "blood_group": "O-",
+        "city": "Kolkata",
+        "phone": "9876543214",
+        "diagnosis": "Asthma",
+        "height":"5.5",
+        "is_admitted": true
+      }
+    ]
+  }
