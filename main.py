@@ -1,13 +1,40 @@
 from fastapi import FastAPI, Path, HTTPException, Query
 import json
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field
+from typing import Annotated, Literal
 
 app = FastAPI()
 
+
+class Patient(BaseModel):
+    id: Annotated[int, Field(..., gt=0, description='ID of the patient', examples=[6])]
+    name: Annotated[str, Field(..., min_length=1, description='Name of the patient')]
+    age: Annotated[int, Field(..., gt=0, lt=120, description='Age of the patient')]
+    gender: Annotated[Literal['Male', 'Female', 'Others'], Field(..., description='Gender of the patient')]
+    blood_group: Annotated[Literal['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], Field(..., description='Blood group of the patient')]
+    city: Annotated[str, Field(..., description='City where the patient is living')]
+    phone: Annotated[str, Field(..., pattern=r'^\d{10}$', description='10 digit phone number')]
+    diagnosis: Annotated[str, Field(..., description='Diagnosis of the patient')]
+    height: Annotated[float, Field(..., gt=0, description='Height of the patient in feet')]
+    is_admitted: Annotated[bool, Field(default=False, description='Is the patient admitted')]
 
 def load_data():
     with open('patient.json','r') as f:
         data = json.load(f)
         return data
+
+def save_data(data):
+    with open('patient.json', 'w') as f:
+        json.dump(data, f, indent=4)
+
+
+
+
+
+
+
+
 
 @app.get("/")
 def hello():
@@ -69,3 +96,25 @@ def sort_Patient(
     )
 
     return sorted_data
+
+
+@app.post("/create")
+def create_patient(patient: Patient):
+    # load existing data
+    data = load_data()
+
+    # check if the patient already exists
+    for p in data["patients"]:
+        if p["id"] == patient.id:
+            raise HTTPException(status_code=400, detail="Patient already exists")
+
+    # add new patient to the list
+    data["patients"].append(patient.model_dump())
+
+    # save into the json file
+    save_data(data)
+
+    return JSONResponse(
+        status_code=201,
+        content={"message": "Patient created successfully"}
+    )
